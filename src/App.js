@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import { useState,useMemo } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import './App.css';
-
+import { UserContext } from './Context/UserContext';
+import TableOfUsers from './Components/TableOfUsers/TableOfUsers';
+import UserDetails from './Components/UserDetalis/UserDetails';
 function App() {
+  const [user,setUser]=useState(null);
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+    <UserContext.Provider value={ value  }>
+        <Route exact path="/">
+         <TableOfUsers></TableOfUsers>
+        </Route>
+        <Route path="/:userName" exact>
+         <UserDetails></UserDetails>
+        </Route>
+      </UserContext.Provider>
+      </Switch>
+    </Router>
   );
 }
 
