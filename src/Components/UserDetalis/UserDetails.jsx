@@ -13,7 +13,6 @@ export default function UserDetails({}) {
     width: "400px",
     height: "400px",
   };
-const s="sd"
   const center = {
     lat: parseInt(user.location.coordinates.latitude),
     lng: parseInt(user.location.coordinates.longitude),
